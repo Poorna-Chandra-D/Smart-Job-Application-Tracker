@@ -1,7 +1,21 @@
 import axios from 'axios';
 
+// Determine API base URL - use window.location for relative URLs
+const getApiBaseUrl = () => {
+  const envUrl = process.env.REACT_APP_API_BASE_URL;
+  if (envUrl) {
+    return envUrl;
+  }
+  // Fallback: use the same host as frontend but different port
+  return `${window.location.protocol}//${window.location.hostname}:5001/api`;
+};
+
+export const API_BASE_URL = getApiBaseUrl();
+
+console.log('API Base URL:', API_BASE_URL);
+
 const apiClient = axios.create({
-  baseURL: process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api',
+  baseURL: API_BASE_URL,
 });
 
 // Add token to requests
@@ -10,8 +24,18 @@ apiClient.interceptors.request.use((config) => {
   if (token) {
     config.headers.Authorization = `Bearer ${token}`;
   }
+  console.log('Request:', config.method?.toUpperCase(), config.url);
   return config;
 });
+
+// Add error logging
+apiClient.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    console.error('API Error:', error.response?.status, error.response?.data || error.message);
+    return Promise.reject(error);
+  }
+);
 
 export const applicationService = {
   getAll: () => apiClient.get('/applications'),

@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
     const result = await pool.query('SELECT * FROM applications ORDER BY created_at DESC');
     res.json(result.rows);
   } catch (error) {
+    console.error('Error fetching applications:', error);
     res.status(500).json({ error: 'Failed to fetch applications' });
   }
 });
@@ -22,6 +23,7 @@ router.get('/:id', async (req, res) => {
     }
     res.json(result.rows[0]);
   } catch (error) {
+    console.error('Error fetching application:', error);
     res.status(500).json({ error: 'Failed to fetch application' });
   }
 });
@@ -30,12 +32,15 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   const { company_name, job_title, status, source, application_date } = req.body;
   try {
+    console.log('Creating application:', { company_name, job_title, status, application_date });
     const result = await pool.query(
       'INSERT INTO applications (company_name, job_title, status, source, application_date) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-      [company_name, job_title, status || 'Applied', source, application_date || new Date()]
+      [company_name, job_title, status || 'Applied', source || 'Manual', application_date || new Date()]
     );
+    console.log('Application created:', result.rows[0]);
     res.status(201).json(result.rows[0]);
   } catch (error) {
+    console.error('Error creating application:', error);
     res.status(500).json({ error: 'Failed to create application' });
   }
 });

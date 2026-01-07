@@ -1,1 +1,0 @@
-# Smart-Job-Application-Tracker
