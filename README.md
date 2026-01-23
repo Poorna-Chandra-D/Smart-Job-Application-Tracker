@@ -265,7 +265,7 @@ MIT
 
 ## 👤 Author
 
-Your Name
+Poorna Chandra Dinesh
 
 ---
 
