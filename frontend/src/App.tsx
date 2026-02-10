@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { Box } from '@mui/material';
 import Navigation from './components/Navigation';
 import Dashboard from './pages/Dashboard';
@@ -9,28 +9,53 @@ import Settings from './pages/Settings';
 import Login from './pages/Login';
 import Profile from './pages/Profile';
 import InterviewTracker from './pages/InterviewTracker';
+import Demo from './pages/Demo';
+import Signup from './pages/Signup';
+import { subscribeToAuthChanges } from './utils/authEvents';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
+  const syncAuthState = useCallback(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('token') : null;
     setIsAuthenticated(!!token);
-    setLoading(false);
   }, []);
 
+  useEffect(() => {
+    syncAuthState();
+    setLoading(false);
+
+    const cleanupCustom = subscribeToAuthChanges(syncAuthState);
+    const handleStorage = () => syncAuthState();
+    window.addEventListener('storage', handleStorage);
+
+    return () => {
+      cleanupCustom?.();
+      window.removeEventListener('storage', handleStorage);
+    };
+  }, [syncAuthState]);
+
+  const handleAuthSuccess = () => {
+    syncAuthState();
+  };
+
   if (loading) {
-    return <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-      Loading...
-    </Box>;
+    return (
+      <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+        Loading...
+      </Box>
+    );
   }
 
   if (!isAuthenticated) {
     return (
       <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="*" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Demo />} />
+        <Route path="/demo" element={<Demo />} />
+        <Route path="/login" element={<Login onAuthSuccess={handleAuthSuccess} />} />
+        <Route path="/signup" element={<Signup onAuthSuccess={handleAuthSuccess} />} />
+        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     );
   }
@@ -46,7 +71,9 @@ function App() {
           <Route path="/interviews" element={<InterviewTracker />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/demo" element={<Demo />} />
           <Route path="/login" element={<Navigate to="/" />} />
+          <Route path="/signup" element={<Navigate to="/" />} />
         </Routes>
       </Box>
     </Box>

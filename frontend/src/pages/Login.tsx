@@ -1,49 +1,81 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Card,
   Alert,
-  InputAdornment,
-  IconButton,
-  Paper,
-  Grid,
+  Box,
+  Button,
+  Card,
   Container,
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  Typography,
 } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import EmailIcon from '@mui/icons-material/Email';
-import LockIcon from '@mui/icons-material/Lock';
-import WorkIcon from '@mui/icons-material/Work';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import LockPersonIcon from '@mui/icons-material/LockPerson';
+import BoltIcon from '@mui/icons-material/Bolt';
+import { authService } from '../services/api';
+import { notifyAuthChange } from '../utils/authEvents';
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onAuthSuccess?: () => void;
+}
+
+const DEMO_EMAIL = 'demo@jobtracker.com';
+const DEMO_PASSWORD = 'demo123!';
+
+const Login: React.FC<LoginProps> = ({ onAuthSuccess }) => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const finalizeAuth = (data: { token: string; user: unknown }) => {
+    localStorage.setItem('token', data.token);
+    localStorage.setItem('user', JSON.stringify(data.user));
+    notifyAuthChange();
+    onAuthSuccess?.();
+    navigate('/');
+  };
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData((prev) => ({ ...prev, [event.target.name]: event.target.value }));
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setError('');
+
+    if (!formData.email || !formData.password) {
+      setError('Please enter your email and password');
+      return;
+    }
+
+    setLoading(true);
+    try {
+      const { data } = await authService.login(formData);
+      finalizeAuth(data);
+    } catch (err: any) {
+      const message = err.response?.data?.error || 'Failed to log in';
+      setError(message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDemoLogin = async () => {
+    setFormData({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
     setError('');
     setLoading(true);
-
     try {
-      // Simulate login
-      if (email && password) {
-        localStorage.setItem('user', JSON.stringify({ email, name: email.split('@')[0] }));
-        localStorage.setItem('token', 'dummy-token');
-        navigate('/');
-      } else {
-        setError('Please fill in all fields');
-      }
+      const { data } = await authService.login({ email: DEMO_EMAIL, password: DEMO_PASSWORD });
+      finalizeAuth(data);
     } catch (err: any) {
-      setError(err.message || 'Login failed');
-    } finally {
+      const message = err.response?.data?.error || 'Demo login unavailable right now';
+      setError(message);
       setLoading(false);
     }
   };
@@ -52,249 +84,141 @@ const Login: React.FC = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        background: 'radial-gradient(circle at 10% 20%, #1d1b2f, #0f0e1b 55%)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        position: 'relative',
-        overflow: 'hidden',
+        py: 6,
       }}
     >
-      {/* Animated background elements */}
-      <Box
-        sx={{
-          position: 'absolute',
-          width: '400px',
-          height: '400px',
-          background: 'rgba(255, 255, 255, 0.1)',
-          borderRadius: '50%',
-          top: '-200px',
-          left: '-200px',
-          animation: 'float 8s ease-in-out infinite',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'absolute',
-          width: '300px',
-          height: '300px',
-          background: 'rgba(255, 255, 255, 0.05)',
-          borderRadius: '50%',
-          bottom: '-150px',
-          right: '-100px',
-          animation: 'float 10s ease-in-out infinite reverse',
-        }}
-      />
-
-      <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
+      <Container maxWidth="sm">
         <Card
           sx={{
-            background: 'rgba(255, 255, 255, 0.95)',
-            backdropFilter: 'blur(10px)',
-            borderRadius: '24px',
-            boxShadow: '0 20px 60px rgba(0, 0, 0, 0.15)',
-            overflow: 'hidden',
-            border: '1px solid rgba(255, 255, 255, 0.2)',
+            p: { xs: 3, md: 5 },
+            borderRadius: '30px',
+            background: 'rgba(255,255,255,0.98)',
+            boxShadow: '0 35px 80px rgba(4, 6, 24, 0.6)',
           }}
         >
-          <Box sx={{ p: { xs: 3, md: 5 } }}>
-            {/* Logo & Title */}
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
-              <Box
-                sx={{
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  width: 70,
-                  height: 70,
-                  borderRadius: '16px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  margin: '0 auto',
-                  mb: 2,
-                  boxShadow: '0 10px 30px rgba(102, 126, 234, 0.4)',
-                }}
-              >
-                <WorkIcon sx={{ fontSize: 40, color: '#fff' }} />
-              </Box>
-              <Typography
-                variant="h3"
-                sx={{
-                  fontWeight: 800,
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  mb: 1,
-                }}
-              >
-                JobTracker
-              </Typography>
-              <Typography variant="subtitle1" sx={{ color: '#666', fontWeight: 500 }}>
-                Smart Job Application Manager
-              </Typography>
+          <Stack spacing={2} sx={{ textAlign: 'center', mb: 3 }}>
+            <Box
+              sx={{
+                width: 80,
+                height: 80,
+                borderRadius: '26px',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                mx: 'auto',
+              }}
+            >
+              <LockPersonIcon sx={{ fontSize: 40, color: '#fff' }} />
             </Box>
+            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1d1b2f' }}>
+              Welcome back to JobTracker
+            </Typography>
+            <Typography sx={{ color: '#6a6887' }}>
+              Pick up where you left off, sync email, and keep every recruiter conversation on track.
+            </Typography>
+          </Stack>
 
-            {/* Error Alert */}
-            {error && (
-              <Alert severity="error" sx={{ mb: 3, borderRadius: '12px' }}>
-                {error}
-              </Alert>
-            )}
+          {error && (
+            <Alert severity="error" sx={{ mb: 3, borderRadius: '12px' }}>
+              {error}
+            </Alert>
+          )}
 
-            {/* Login Form */}
-            <Box component="form" onSubmit={handleLogin} noValidate sx={{ mt: 3 }}>
-              <TextField
-                fullWidth
-                label="Email Address"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@example.com"
-                sx={{ mb: 2 }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <EmailIcon sx={{ color: '#667eea', mr: 1 }} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
+          <Box component="form" onSubmit={handleSubmit}>
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              type="email"
+              value={formData.email}
+              onChange={handleChange}
+              sx={{ mb: 2 }}
+            />
+            <TextField
+              fullWidth
+              label="Password"
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              value={formData.password}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton onClick={() => setShowPassword((prev) => !prev)} edge="end">
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }}
+              helperText="Enter the password you set during signup"
+            />
 
-              <TextField
-                fullWidth
-                label="Password"
-                type={showPassword ? 'text' : 'password'}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                sx={{ mb: 2 }}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <LockIcon sx={{ color: '#667eea', mr: 1 }} />
-                    </InputAdornment>
-                  ),
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={() => setShowPassword(!showPassword)}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                      </IconButton>
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
-              <Button
-                fullWidth
-                type="submit"
-                disabled={loading}
-                sx={{
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  color: '#fff',
-                  fontWeight: 700,
-                  py: 1.5,
-                  borderRadius: '12px',
-                  mb: 2,
-                  textTransform: 'none',
-                  fontSize: '1rem',
-                  '&:hover': {
-                    boxShadow: '0 10px 30px rgba(102, 126, 234, 0.4)',
-                    transform: 'translateY(-2px)',
-                  },
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                {loading ? 'Signing in...' : 'Sign In'}
-              </Button>
-
-              {/* Divider */}
-              <Box sx={{ display: 'flex', alignItems: 'center', my: 3 }}>
-                <Box sx={{ flex: 1, height: '1px', background: '#eee' }} />
-                <Typography sx={{ px: 2, color: '#999', fontWeight: 600 }}>
-                  or
-                </Typography>
-                <Box sx={{ flex: 1, height: '1px', background: '#eee' }} />
-              </Box>
-
-              {/* Social Login */}
-              <Grid container spacing={2}>
-                <Grid item xs={6}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    startIcon={<GoogleIcon />}
-                    sx={{
-                      borderColor: '#ddd',
-                      color: '#333',
-                      fontWeight: 600,
-                      py: 1.2,
-                      borderRadius: '12px',
-                      '&:hover': { borderColor: '#667eea', background: 'rgba(102, 126, 234, 0.05)' },
-                    }}
-                  >
-                    Google
-                  </Button>
-                </Grid>
-                <Grid item xs={6}>
-                  <Button
-                    fullWidth
-                    variant="outlined"
-                    startIcon={<GitHubIcon />}
-                    sx={{
-                      borderColor: '#ddd',
-                      color: '#333',
-                      fontWeight: 600,
-                      py: 1.2,
-                      borderRadius: '12px',
-                      '&:hover': { borderColor: '#667eea', background: 'rgba(102, 126, 234, 0.05)' },
-                    }}
-                  >
-                    GitHub
-                  </Button>
-                </Grid>
-              </Grid>
-
-              {/* Sign Up Link */}
-              <Typography sx={{ textAlign: 'center', mt: 3, color: '#666' }}>
-                Don't have an account?{' '}
-                <Typography
-                  component="span"
-                  sx={{
-                    fontWeight: 700,
-                    color: '#667eea',
-                    cursor: 'pointer',
-                    '&:hover': { textDecoration: 'underline' },
-                  }}
-                >
-                  Sign up
-                </Typography>
-              </Typography>
-            </Box>
+            <Button
+              fullWidth
+              type="submit"
+              disabled={loading}
+              sx={{
+                mt: 4,
+                py: 1.4,
+                fontWeight: 800,
+                borderRadius: '16px',
+                textTransform: 'none',
+                fontSize: '1.05rem',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                color: '#fff',
+              }}
+            >
+              {loading ? 'Signing you in…' : 'Sign in'}
+            </Button>
           </Box>
+
+          <Stack spacing={2} sx={{ mt: 4 }}>
+            <Button
+              variant="outlined"
+              onClick={handleDemoLogin}
+              disabled={loading}
+              startIcon={<BoltIcon />}
+              sx={{
+                borderRadius: '14px',
+                textTransform: 'none',
+                fontWeight: 700,
+                borderWidth: 2,
+              }}
+            >
+              Launch demo workspace
+            </Button>
+            <Typography sx={{ textAlign: 'center', color: '#6a6887' }}>
+              Demo email {DEMO_EMAIL} · password {DEMO_PASSWORD}
+            </Typography>
+            <Button
+              onClick={() => navigate('/demo')}
+              sx={{
+                textTransform: 'none',
+                fontWeight: 600,
+                color: '#4b47ff',
+              }}
+            >
+              Just exploring? Preview the product tour
+            </Button>
+          </Stack>
+
+          <Typography sx={{ textAlign: 'center', mt: 4, color: '#6a6887' }}>
+            New here?{' '}
+            <Typography
+              component="span"
+              sx={{ fontWeight: 700, color: '#4f46e5', cursor: 'pointer' }}
+              onClick={() => navigate('/signup')}
+            >
+              Create an account
+            </Typography>
+          </Typography>
         </Card>
-
-        {/* Footer */}
-        <Typography
-          sx={{
-            textAlign: 'center',
-            mt: 4,
-            color: 'rgba(255, 255, 255, 0.8)',
-            fontSize: '0.9rem',
-          }}
-        >
-          © 2026 JobTracker. All rights reserved.
-        </Typography>
       </Container>
-
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(30px); }
-        }
-      `}</style>
     </Box>
   );
 };

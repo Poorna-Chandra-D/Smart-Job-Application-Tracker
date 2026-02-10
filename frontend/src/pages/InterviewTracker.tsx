@@ -23,16 +23,12 @@ import {
   Paper,
   IconButton,
   Tooltip,
-  Alert,
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import CalendarIcon from '@mui/icons-material/Calendar';
-import ClockIcon from '@mui/icons-material/Schedule';
+import DateRangeIcon from '@mui/icons-material/DateRange';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
-import CheckIcon from '@mui/icons-material/CheckCircle';
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import PersonIcon from '@mui/icons-material/Person';
 import VideoCallIcon from '@mui/icons-material/Videocam';
 import PhoneIcon from '@mui/icons-material/Phone';
 
@@ -230,7 +226,7 @@ const InterviewTracker: React.FC = () => {
         {/* Interviews Table */}
         {interviews.length === 0 ? (
           <Card sx={{ borderRadius: '16px', p: 4, textAlign: 'center' }}>
-            <CalendarIcon sx={{ fontSize: 60, color: '#bdbdbd', mb: 2 }} />
+            <DateRangeIcon sx={{ fontSize: 60, color: '#bdbdbd', mb: 2 }} />
             <Typography variant="h5" sx={{ mb: 1, color: '#424242', fontWeight: 700 }}>
               No interviews scheduled
             </Typography>
@@ -291,12 +287,12 @@ const InterviewTracker: React.FC = () => {
                     </TableCell>
                     <TableCell sx={{ color: '#666' }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                        <CalendarIcon sx={{ fontSize: 16 }} />
+                        <DateRangeIcon sx={{ fontSize: 16 }} />
                         {new Date(interview.date).toLocaleDateString()}
                       </Box>
                       {interview.time && (
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#999' }}>
-                          <ClockIcon sx={{ fontSize: 16 }} />
+                          <ScheduleIcon sx={{ fontSize: 16 }} />
                           {interview.time}
                         </Box>
                       )}

@@ -6,8 +6,22 @@ const getApiBaseUrl = () => {
   if (envUrl) {
     return envUrl;
   }
-  // Fallback: use the same host as frontend but different port
-  return `${window.location.protocol}//${window.location.hostname}:5001/api`;
+
+  const { protocol, hostname, port } = window.location;
+  const resolvedPort = (() => {
+    if (port === '3000') {
+      // Local dev server should talk to backend default on 5000
+      return '5000';
+    }
+    if (port) {
+      return port;
+    }
+    // When served without a port (production), reuse same origin
+    return '';
+  })();
+
+  const portSuffix = resolvedPort ? `:${resolvedPort}` : '';
+  return `${protocol}//${hostname}${portSuffix}/api`;
 };
 
 export const API_BASE_URL = getApiBaseUrl();
@@ -57,6 +71,11 @@ export const emailService = {
 };
 
 export const authService = {
+  login: (credentials: { email: string; password: string }) =>
+    apiClient.post('/auth/login', credentials),
+  register: (payload: { email: string; password: string; firstName: string; lastName: string }) =>
+    apiClient.post('/auth/register', payload),
+  me: () => apiClient.get('/auth/me'),
   logout: () => apiClient.post('/auth/logout'),
 };
 

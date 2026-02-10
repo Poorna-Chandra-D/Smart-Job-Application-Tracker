@@ -1,5 +1,5 @@
 import { pool } from '../config/database';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
 export interface User {
@@ -34,4 +34,26 @@ export const generateToken = (userId: number, email: string) => {
   return jwt.sign({ userId, email }, process.env.JWT_SECRET || 'secret', {
     expiresIn: '24h',
   });
+};
+
+export const ensureDemoUser = async () => {
+  const email = (process.env.DEMO_USER_EMAIL || 'demo@jobtracker.com').toLowerCase();
+  const password = process.env.DEMO_USER_PASSWORD || 'demo123!';
+  const firstName = process.env.DEMO_USER_FIRST_NAME || 'Demo';
+  const lastName = process.env.DEMO_USER_LAST_NAME || 'User';
+
+  const existing = await pool.query('SELECT * FROM users WHERE LOWER(email) = $1 LIMIT 1', [email]);
+  if (existing.rows.length > 0) {
+    return existing.rows[0];
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const inserted = await pool.query(
+    `INSERT INTO users (email, password_hash, first_name, last_name)
+     VALUES ($1, $2, $3, $4)
+     RETURNING *`,
+    [email, hashedPassword, firstName, lastName]
+  );
+
+  return inserted.rows[0];
 };

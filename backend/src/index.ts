@@ -6,6 +6,7 @@ import authRoutes from './routes/auth';
 import applicationRoutes from './routes/applications';
 import emailRoutes from './routes/email';
 import analyticsRoutes from './routes/analytics';
+import { ensureDemoUser } from './models/User';
 
 dotenv.config();
 
@@ -24,6 +25,15 @@ export const pool = new Pool({
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
 });
+
+(async () => {
+  try {
+    const demo = await ensureDemoUser();
+    console.log(`Demo user ready: ${demo.email}`);
+  } catch (error) {
+    console.error('Failed to ensure demo user', error);
+  }
+})();
 
 // Routes
 app.use('/api/auth', authRoutes);

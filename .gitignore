@@ -14,6 +14,11 @@ node_modules/
 /dist
 /build
 
+# Local build artifacts
+.history/
+backend/dist/
+frontend/build/
+
 # IDE
 .vscode/
 .idea/

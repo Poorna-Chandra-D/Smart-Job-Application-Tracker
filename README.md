@@ -186,6 +186,12 @@ This will start:
 - Backend API on `localhost:5000`
 - Frontend on `localhost:3000`
 
+### Demo Credentials
+
+Log in with the pre-seeded demo account:
+- **Email:** `demo@jobtracker.com`
+- **Password:** `demo123!`
+
 ### Running Locally
 
 #### Backend
@@ -211,6 +217,9 @@ npm run migrate
 ## 📝 API Endpoints
 
 ### Authentication
+- `POST /api/auth/login` - Email/password login
+- `POST /api/auth/register` - Create a new account
+- `GET /api/auth/me` - Fetch the authenticated profile
 - `GET /api/auth/gmail` - Initiate Gmail OAuth
 - `GET /api/auth/outlook` - Initiate Outlook OAuth
 - `POST /api/auth/logout` - Logout
