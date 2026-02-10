@@ -80,6 +80,40 @@ const Demo: React.FC = () => {
 
   return (
     <Box sx={{ background: '#f4f3ff', minHeight: '100vh', py: { xs: 6, md: 10 } }}>
+      {/* Floating "Building in Progress" Banner */}
+      <Box
+        sx={{
+          position: 'fixed',
+          top: 20,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 1000,
+          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          color: '#fff',
+          px: 3,
+          py: 1.2,
+          borderRadius: '50px',
+          boxShadow: '0 10px 30px rgba(239, 68, 68, 0.3)',
+          backdropFilter: 'blur(10px)',
+          fontWeight: 700,
+          fontSize: '0.95rem',
+          textAlign: 'center',
+          animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+          '@keyframes pulse': {
+            '0%, 100%': {
+              opacity: 1,
+              transform: 'translateX(-50%) scale(1)',
+            },
+            '50%': {
+              opacity: 0.9,
+              transform: 'translateX(-50%) scale(1.02)',
+            },
+          },
+        }}
+      >
+        🚀 Building in Progress
+      </Box>
+
       <Container maxWidth="lg">
         {/* Hero */}
         <Grid container spacing={4} alignItems="center">
