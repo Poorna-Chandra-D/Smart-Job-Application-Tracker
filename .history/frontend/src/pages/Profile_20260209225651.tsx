@@ -18,15 +18,17 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
-import EditIcon from '@mui/icons-material/Edit';
-import SaveIcon from '@mui/icons-material/Save';
-import CloseIcon from '@mui/icons-material/Close';
-import DownloadIcon from '@mui/icons-material/FileDownload';
-import LinkIcon from '@mui/icons-material/Link';
-import MailIcon from '@mui/icons-material/Mail';
-import PhoneIcon from '@mui/icons-material/Phone';
-import LocationIcon from '@mui/icons-material/LocationOn';
+import {
+  Person as PersonIcon,
+  Edit as EditIcon,
+  Save as SaveIcon,
+  Close as CloseIcon,
+  FileDownload as DownloadIcon,
+  LinkOutlined as LinkIcon,
+  Mail as MailIcon,
+  Phone as PhoneIcon,
+  LocationOn as LocationIcon,
+} from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 const Profile: React.FC = () => {

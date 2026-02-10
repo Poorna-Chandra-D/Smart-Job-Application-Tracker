@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
+import { Box, useEffect, useState } from '@mui/material';
 import Navigation from './components/Navigation';
 import Dashboard from './pages/Dashboard';
 import ApplicationTracker from './pages/ApplicationTracker';

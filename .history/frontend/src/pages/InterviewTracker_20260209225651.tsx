@@ -25,16 +25,18 @@ import {
   Tooltip,
   Alert,
 } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
-import CalendarIcon from '@mui/icons-material/Calendar';
-import ClockIcon from '@mui/icons-material/Schedule';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CheckIcon from '@mui/icons-material/CheckCircle';
-import ScheduleIcon from '@mui/icons-material/Schedule';
-import PersonIcon from '@mui/icons-material/Person';
-import VideoCallIcon from '@mui/icons-material/Videocam';
-import PhoneIcon from '@mui/icons-material/Phone';
+import {
+  Add as AddIcon,
+  Calendar as CalendarIcon,
+  Clock as ClockIcon,
+  Edit as EditIcon,
+  Delete as DeleteIcon,
+  CheckCircle as CheckIcon,
+  Schedule as ScheduleIcon,
+  Person as PersonIcon,
+  VideoCall as VideoCallIcon,
+  Phone as PhoneIcon,
+} from '@mui/icons-material';
 
 interface Interview {
   id: number;

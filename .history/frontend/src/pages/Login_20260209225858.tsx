@@ -114,7 +114,7 @@ const Login: React.FC = () => {
                   boxShadow: '0 10px 30px rgba(102, 126, 234, 0.4)',
                 }}
               >
-                <WorkIcon sx={{ fontSize: 40, color: '#fff' }} />
+                <LogoIcon sx={{ fontSize: 40, color: '#fff' }} />
               </Box>
               <Typography
                 variant="h3"

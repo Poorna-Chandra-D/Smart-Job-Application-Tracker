@@ -17,7 +17,6 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import EmailIcon from '@mui/icons-material/Email';
 import LockIcon from '@mui/icons-material/Lock';
-import WorkIcon from '@mui/icons-material/Work';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
@@ -114,7 +113,7 @@ const Login: React.FC = () => {
                   boxShadow: '0 10px 30px rgba(102, 126, 234, 0.4)',
                 }}
               >
-                <WorkIcon sx={{ fontSize: 40, color: '#fff' }} />
+                <LogoIcon sx={{ fontSize: 40, color: '#fff' }} />
               </Box>
               <Typography
                 variant="h3"
