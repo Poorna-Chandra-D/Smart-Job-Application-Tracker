@@ -67,38 +67,64 @@ const Navigation: React.FC = () => {
         '& .MuiDrawer-paper': {
           width: 280,
           boxSizing: 'border-box',
-          background: 'linear-gradient(180deg, #667eea 0%, #764ba2 100%)',
-          color: '#fff',
-          borderRight: 'none',
+          background: 'linear-gradient(180deg, #0a0a0f 0%, #141420 50%, #1a1a2e 100%)',
+          color: '#e0e0ff',
+          borderRight: '2px solid rgba(0, 255, 255, 0.3)',
+          boxShadow: '2px 0 20px rgba(0, 255, 255, 0.2)',
           display: 'flex',
           flexDirection: 'column',
+          position: 'relative',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            right: 0,
+            width: '2px',
+            height: '100%',
+            background: 'linear-gradient(180deg, transparent, #00ffff, #ff00ff, transparent)',
+            animation: 'borderFlow 3s linear infinite',
+          },
         },
       }}
     >
       {/* Header */}
       <Box sx={{ p: 3, textAlign: 'center', flexShrink: 0 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 2 }}>
-          <Avatar 
-            sx={{ 
-              background: 'rgba(255,255,255,0.2)',
+          <Avatar
+            sx={{
+              background: 'rgba(0, 255, 255, 0.1)',
               width: 50,
               height: 50,
-              border: '2px solid rgba(255,255,255,0.5)',
+              border: '2px solid #00ffff',
+              boxShadow: '0 0 20px rgba(0, 255, 255, 0.5), inset 0 0 10px rgba(0, 255, 255, 0.3)',
               backdropFilter: 'blur(10px)',
             }}
           >
-            <LogoIcon sx={{ fontSize: 30 }} />
+            <LogoIcon sx={{ fontSize: 30, color: '#00ffff' }} />
           </Avatar>
         </Box>
-        <Typography variant="h5" sx={{ fontWeight: 800, mb: 0.5, letterSpacing: '-0.5px' }}>
+        <Typography variant="h5" sx={{
+          fontWeight: 800,
+          mb: 0.5,
+          letterSpacing: '0.1em',
+          textTransform: 'uppercase',
+          color: '#00ffff',
+          textShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+        }}>
           JobTracker
         </Typography>
-        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.8)', display: 'block' }}>
-          Smart Application Manager
+        <Typography variant="caption" sx={{
+          color: '#ff00ff',
+          display: 'block',
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          fontWeight: 600,
+        }}>
+          ◢ Smart Application Manager ◣
         </Typography>
       </Box>
 
-      <Divider sx={{ background: 'rgba(255,255,255,0.2)', my: 2 }} />
+      <Divider sx={{ background: 'linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent)', my: 2, height: '2px' }} />
 
       {/* Menu Items */}
       <List sx={{ px: 1, flex: 1 }}>
@@ -110,24 +136,42 @@ const Navigation: React.FC = () => {
                 component={RouterLink}
                 to={item.path}
                 sx={{
-                  borderRadius: '12px',
-                  background: isActive ? 'rgba(255,255,255,0.2)' : 'transparent',
-                  color: '#fff',
+                  borderRadius: '8px',
+                  background: isActive ? 'rgba(0, 255, 255, 0.1)' : 'transparent',
+                  color: isActive ? '#00ffff' : '#a0a0cc',
                   transition: 'all 0.3s ease',
                   backdropFilter: isActive ? 'blur(10px)' : 'none',
-                  borderLeft: isActive ? '3px solid #fff' : 'none',
+                  borderLeft: isActive ? '3px solid #00ffff' : '3px solid transparent',
+                  borderRight: '1px solid transparent',
+                  boxShadow: isActive ? 'inset 0 0 20px rgba(0, 255, 255, 0.2), 0 0 10px rgba(0, 255, 255, 0.3)' : 'none',
                   pl: isActive ? 1.7 : 2,
+                  position: 'relative',
+                  overflow: 'hidden',
                   '&:hover': {
-                    background: 'rgba(255,255,255,0.15)',
+                    background: 'rgba(255, 0, 255, 0.1)',
+                    color: '#ff00ff',
                     transform: 'translateX(4px)',
+                    borderRight: '1px solid rgba(255, 0, 255, 0.5)',
+                    boxShadow: '0 0 15px rgba(255, 0, 255, 0.3)',
                   },
+                  '&::before': isActive ? {
+                    content: '""',
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    width: '100%',
+                    height: '100%',
+                    background: 'linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent)',
+                    animation: 'shimmer 2s infinite',
+                  } : {},
                 }}
               >
                 <ListItemIcon
                   sx={{
-                    color: isActive ? '#fff' : 'rgba(255,255,255,0.8)',
+                    color: 'inherit',
                     minWidth: 40,
                     transition: 'all 0.3s ease',
+                    filter: isActive ? 'drop-shadow(0 0 5px currentColor)' : 'none',
                   }}
                 >
                   {item.icon}
@@ -137,7 +181,8 @@ const Navigation: React.FC = () => {
                   primaryTypographyProps={{
                     fontWeight: isActive ? 700 : 500,
                     fontSize: '0.95rem',
-                    letterSpacing: '-0.3px',
+                    letterSpacing: '0.05em',
+                    textTransform: 'uppercase',
                   }}
                 />
               </ListItemButton>
@@ -146,7 +191,7 @@ const Navigation: React.FC = () => {
         })}
       </List>
 
-      <Divider sx={{ background: 'rgba(255,255,255,0.2)', my: 2 }} />
+      <Divider sx={{ background: 'linear-gradient(90deg, transparent, rgba(255, 0, 255, 0.5), transparent)', my: 2, height: '2px' }} />
 
       {/* Profile Section */}
       <Box sx={{ p: 2, textAlign: 'center', flexShrink: 0 }}>
@@ -157,17 +202,20 @@ const Navigation: React.FC = () => {
             display: 'flex',
             alignItems: 'center',
             gap: 2,
-            color: '#fff',
+            color: '#e0e0ff',
             justifyContent: 'center',
             py: 1.5,
             px: 2,
-            borderRadius: '12px',
-            background: 'rgba(255,255,255,0.1)',
+            borderRadius: '8px',
+            background: 'rgba(0, 255, 255, 0.05)',
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(255,255,255,0.2)',
+            border: '1px solid rgba(0, 255, 255, 0.3)',
+            boxShadow: 'inset 0 0 10px rgba(0, 255, 255, 0.1)',
             mb: 1,
             '&:hover': {
-              background: 'rgba(255,255,255,0.15)',
+              background: 'rgba(255, 0, 255, 0.1)',
+              borderColor: 'rgba(255, 0, 255, 0.5)',
+              boxShadow: '0 0 15px rgba(255, 0, 255, 0.3), inset 0 0 15px rgba(255, 0, 255, 0.1)',
             },
             textTransform: 'none',
           }}
@@ -176,18 +224,21 @@ const Navigation: React.FC = () => {
             sx={{
               width: 32,
               height: 32,
-              background: 'rgba(255,255,255,0.3)',
+              background: 'rgba(0, 255, 255, 0.2)',
+              border: '2px solid #00ffff',
+              boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
               fontWeight: 700,
               fontSize: '0.9rem',
+              color: '#00ffff',
             }}
           >
             {user?.name?.charAt(0).toUpperCase() || 'U'}
           </Avatar>
           <Box sx={{ textAlign: 'left' }}>
-            <Typography sx={{ fontSize: '0.85rem', fontWeight: 700 }}>
+            <Typography sx={{ fontSize: '0.85rem', fontWeight: 700, color: '#00ffff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               {user?.name || 'User'}
             </Typography>
-            <Typography sx={{ fontSize: '0.75rem', opacity: 0.8 }}>
+            <Typography sx={{ fontSize: '0.75rem', color: '#ff00ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               Profile
             </Typography>
           </Box>
@@ -200,11 +251,12 @@ const Navigation: React.FC = () => {
           slotProps={{
             paper: {
               sx: {
-                background: 'rgba(30, 30, 46, 0.95)',
+                background: 'rgba(20, 20, 32, 0.95)',
                 backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                color: '#fff',
-                borderRadius: '12px',
+                border: '2px solid rgba(0, 255, 255, 0.3)',
+                boxShadow: '0 0 30px rgba(0, 255, 255, 0.3)',
+                color: '#e0e0ff',
+                borderRadius: '8px',
               },
             },
           }}
@@ -215,19 +267,32 @@ const Navigation: React.FC = () => {
               handleProfileClose();
             }}
             sx={{
-              color: '#fff',
-              '&:hover': { background: 'rgba(102, 126, 234, 0.2)' },
+              color: '#e0e0ff',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              fontWeight: 600,
+              '&:hover': {
+                background: 'rgba(0, 255, 255, 0.2)',
+                color: '#00ffff',
+                boxShadow: 'inset 0 0 10px rgba(0, 255, 255, 0.3)',
+              },
             }}
           >
             <PersonIcon sx={{ mr: 1 }} />
             My Profile
           </MenuItem>
-          <Divider sx={{ background: 'rgba(255,255,255,0.1)' }} />
+          <Divider sx={{ background: 'linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.5), transparent)', height: '2px' }} />
           <MenuItem
             onClick={handleLogout}
             sx={{
-              color: '#ff6b6b',
-              '&:hover': { background: 'rgba(255, 107, 107, 0.1)' },
+              color: '#ff0055',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              fontWeight: 600,
+              '&:hover': {
+                background: 'rgba(255, 0, 85, 0.1)',
+                boxShadow: 'inset 0 0 10px rgba(255, 0, 85, 0.2)',
+              },
             }}
           >
             <LogoutIcon sx={{ mr: 1 }} />
@@ -235,7 +300,14 @@ const Navigation: React.FC = () => {
           </MenuItem>
         </Menu>
 
-        <Typography variant="caption" sx={{ color: 'rgba(255,255,255,0.7)', display: 'block', mt: 1.5 }}>
+        <Typography variant="caption" sx={{
+          color: 'rgba(160, 160, 204, 0.7)',
+          display: 'block',
+          mt: 1.5,
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
+          fontSize: '0.65rem',
+        }}>
           © 2026 JobTracker v1.0
         </Typography>
       </Box>
