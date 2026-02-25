@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Box, Typography, Grid, Card, CardContent, Container, LinearProgress } from '@mui/material';
 import {
-  TrendingUp as TrendingIcon,
   AssignmentTurnedIn as SuccessIcon,
   ThumbUp as OfferIcon,
   ShowChart as ChartIcon,
