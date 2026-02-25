@@ -132,12 +132,12 @@ const InterviewTracker: React.FC = () => {
 
   const getStatusColor = (status: string) => {
     const colors: { [key: string]: any } = {
-      'Scheduled': { bg: '#e3f2fd', color: '#1976d2' },
-      'Completed': { bg: '#e8f5e9', color: '#388e3c' },
-      'Cancelled': { bg: '#ffebee', color: '#c62828' },
-      'No Show': { bg: '#fff3e0', color: '#f57c00' },
+      'Scheduled': { bg: 'rgba(0, 255, 255, 0.2)', color: '#00ffff', border: '#00ffff' },
+      'Completed': { bg: 'rgba(0, 255, 100, 0.2)', color: '#00ff64', border: '#00ff64' },
+      'Cancelled': { bg: 'rgba(255, 0, 100, 0.2)', color: '#ff0064', border: '#ff0064' },
+      'No Show': { bg: 'rgba(255, 0, 255, 0.2)', color: '#ff00ff', border: '#ff00ff' },
     };
-    return colors[status] || { bg: '#f5f5f5', color: '#616161' };
+    return colors[status] || { bg: 'rgba(160, 160, 204, 0.2)', color: '#a0a0cc', border: '#a0a0cc' };
   };
 
   const getTypeIcon = (type: string) => {
@@ -145,15 +145,15 @@ const InterviewTracker: React.FC = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', background: '#f8f9fa', py: 4 }}>
+    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(10, 10, 15, 1) 0%, rgba(20, 20, 32, 1) 100%)', py: 4 }}>
       <Container maxWidth="lg">
         {/* Header */}
         <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Box>
-            <Typography variant="h3" sx={{ fontWeight: 800, mb: 1, color: '#1a1a1a' }}>
-              📅 Interview Tracker
+            <Typography variant="h3" sx={{ fontWeight: 800, mb: 1, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em', textShadow: '0 0 20px rgba(0, 255, 255, 0.3)' }}>
+              Interview Tracker
             </Typography>
-            <Typography variant="subtitle1" sx={{ color: '#666' }}>
+            <Typography variant="subtitle1" sx={{ color: '#a0a0cc', letterSpacing: '0.03em' }}>
               Schedule and track your interviews
             </Typography>
           </Box>
@@ -162,9 +162,18 @@ const InterviewTracker: React.FC = () => {
             startIcon={<AddIcon />}
             onClick={handleAddInterview}
             sx={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'rgba(0, 255, 255, 0.2)',
+              color: '#00ffff',
+              border: '1px solid #00ffff',
               fontWeight: 700,
               borderRadius: '12px',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              boxShadow: '0 0 15px rgba(0, 255, 255, 0.3)',
+              '&:hover': {
+                background: 'rgba(0, 255, 255, 0.3)',
+                boxShadow: '0 0 25px rgba(0, 255, 255, 0.5)',
+              }
             }}
           >
             Schedule Interview
@@ -174,48 +183,88 @@ const InterviewTracker: React.FC = () => {
         {/* Stats */}
         <Grid container spacing={3} sx={{ mb: 4 }}>
           <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ borderRadius: '16px', background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff' }}>
+            <Card sx={{
+              borderRadius: '16px',
+              background: 'rgba(20, 20, 32, 0.9)',
+              border: '2px solid #00ffff',
+              boxShadow: '0 0 20px rgba(0, 255, 255, 0.3)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-8px)',
+                boxShadow: '0 0 30px rgba(0, 255, 255, 0.6)',
+              }
+            }}>
               <CardContent sx={{ textAlign: 'center' }}>
-                <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                <Typography variant="body2" sx={{ opacity: 0.9, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#a0a0cc' }}>
                   Total Interviews
                 </Typography>
-                <Typography variant="h4" sx={{ fontWeight: 700 }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: '#00ffff' }}>
                   {interviews.length}
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ borderRadius: '16px', background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)', color: '#fff' }}>
+            <Card sx={{
+              borderRadius: '16px',
+              background: 'rgba(20, 20, 32, 0.9)',
+              border: '2px solid #ff00ff',
+              boxShadow: '0 0 20px rgba(255, 0, 255, 0.3)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-8px)',
+                boxShadow: '0 0 30px rgba(255, 0, 255, 0.6)',
+              }
+            }}>
               <CardContent sx={{ textAlign: 'center' }}>
-                <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                <Typography variant="body2" sx={{ opacity: 0.9, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#a0a0cc' }}>
                   Scheduled
                 </Typography>
-                <Typography variant="h4" sx={{ fontWeight: 700 }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: '#ff00ff' }}>
                   {interviews.filter(i => i.status === 'Scheduled').length}
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ borderRadius: '16px', background: 'linear-gradient(135deg, #388e3c 0%, #2e7d32 100%)', color: '#fff' }}>
+            <Card sx={{
+              borderRadius: '16px',
+              background: 'rgba(20, 20, 32, 0.9)',
+              border: '2px solid #00ff64',
+              boxShadow: '0 0 20px rgba(0, 255, 100, 0.3)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-8px)',
+                boxShadow: '0 0 30px rgba(0, 255, 100, 0.6)',
+              }
+            }}>
               <CardContent sx={{ textAlign: 'center' }}>
-                <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                <Typography variant="body2" sx={{ opacity: 0.9, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#a0a0cc' }}>
                   Completed
                 </Typography>
-                <Typography variant="h4" sx={{ fontWeight: 700 }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: '#00ff64' }}>
                   {interviews.filter(i => i.status === 'Completed').length}
                 </Typography>
               </CardContent>
             </Card>
           </Grid>
           <Grid item xs={12} sm={6} md={3}>
-            <Card sx={{ borderRadius: '16px', background: 'linear-gradient(135deg, #f57c00 0%, #e65100 100%)', color: '#fff' }}>
+            <Card sx={{
+              borderRadius: '16px',
+              background: 'rgba(20, 20, 32, 0.9)',
+              border: '2px solid #00ffff',
+              boxShadow: '0 0 20px rgba(0, 255, 255, 0.3)',
+              transition: 'all 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-8px)',
+                boxShadow: '0 0 30px rgba(0, 255, 255, 0.6)',
+              }
+            }}>
               <CardContent sx={{ textAlign: 'center' }}>
-                <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                <Typography variant="body2" sx={{ opacity: 0.9, textTransform: 'uppercase', letterSpacing: '0.05em', color: '#a0a0cc' }}>
                   Upcoming
                 </Typography>
-                <Typography variant="h4" sx={{ fontWeight: 700 }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: '#00ffff' }}>
                   {interviews.filter(i => new Date(i.date) > new Date() && i.status === 'Scheduled').length}
                 </Typography>
               </CardContent>
@@ -225,12 +274,19 @@ const InterviewTracker: React.FC = () => {
 
         {/* Interviews Table */}
         {interviews.length === 0 ? (
-          <Card sx={{ borderRadius: '16px', p: 4, textAlign: 'center' }}>
-            <DateRangeIcon sx={{ fontSize: 60, color: '#bdbdbd', mb: 2 }} />
-            <Typography variant="h5" sx={{ mb: 1, color: '#424242', fontWeight: 700 }}>
+          <Card sx={{
+            borderRadius: '16px',
+            p: 4,
+            textAlign: 'center',
+            background: 'rgba(20, 20, 32, 0.9)',
+            border: '2px solid #00ffff',
+            boxShadow: '0 0 20px rgba(0, 255, 255, 0.3)',
+          }}>
+            <DateRangeIcon sx={{ fontSize: 60, color: '#00ffff', mb: 2 }} />
+            <Typography variant="h5" sx={{ mb: 1, color: '#e0e0ff', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.05em' }}>
               No interviews scheduled
             </Typography>
-            <Typography color="textSecondary" sx={{ mb: 3 }}>
+            <Typography sx={{ mb: 3, color: '#a0a0cc' }}>
               Start by scheduling your first interview
             </Typography>
             <Button
@@ -238,9 +294,18 @@ const InterviewTracker: React.FC = () => {
               startIcon={<AddIcon />}
               onClick={handleAddInterview}
               sx={{
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                background: 'rgba(0, 255, 255, 0.2)',
+                color: '#00ffff',
+                border: '1px solid #00ffff',
                 fontWeight: 700,
                 borderRadius: '12px',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em',
+                boxShadow: '0 0 15px rgba(0, 255, 255, 0.3)',
+                '&:hover': {
+                  background: 'rgba(0, 255, 255, 0.3)',
+                  boxShadow: '0 0 25px rgba(0, 255, 255, 0.5)',
+                }
               }}
             >
               Schedule Your First Interview
@@ -251,81 +316,96 @@ const InterviewTracker: React.FC = () => {
             component={Paper}
             sx={{
               borderRadius: '16px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+              background: 'rgba(20, 20, 32, 0.9)',
+              border: '2px solid #ff00ff',
+              boxShadow: '0 0 20px rgba(255, 0, 255, 0.3)',
+              backdropFilter: 'blur(10px)',
             }}
           >
             <Table>
               <TableHead>
-                <TableRow sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}>
-                  <TableCell sx={{ color: '#fff', fontWeight: 700 }}>Company</TableCell>
-                  <TableCell sx={{ color: '#fff', fontWeight: 700 }}>Round</TableCell>
-                  <TableCell sx={{ color: '#fff', fontWeight: 700 }}>Date & Time</TableCell>
-                  <TableCell sx={{ color: '#fff', fontWeight: 700 }}>Type</TableCell>
-                  <TableCell sx={{ color: '#fff', fontWeight: 700 }}>Status</TableCell>
-                  <TableCell sx={{ color: '#fff', fontWeight: 700 }} align="right">Actions</TableCell>
+                <TableRow sx={{ background: 'linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%)' }}>
+                  <TableCell sx={{ color: '#e0e0ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #00ffff' }}>Company</TableCell>
+                  <TableCell sx={{ color: '#e0e0ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #00ffff' }}>Round</TableCell>
+                  <TableCell sx={{ color: '#e0e0ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #00ffff' }}>Date & Time</TableCell>
+                  <TableCell sx={{ color: '#e0e0ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #00ffff' }}>Type</TableCell>
+                  <TableCell sx={{ color: '#e0e0ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #00ffff' }}>Status</TableCell>
+                  <TableCell sx={{ color: '#e0e0ff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em', borderBottom: '1px solid #00ffff' }} align="right">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {interviews.map((interview) => (
                   <TableRow
                     key={interview.id}
-                    hover
-                    sx={{ '&:hover': { background: 'rgba(102, 126, 234, 0.05)' } }}
+                    sx={{
+                      '&:hover': { background: 'rgba(0, 255, 255, 0.1)' },
+                      borderBottom: '1px solid rgba(0, 255, 255, 0.2)'
+                    }}
                   >
-                    <TableCell sx={{ fontWeight: 600 }}>
+                    <TableCell sx={{ fontWeight: 600, borderBottom: '1px solid rgba(0, 255, 255, 0.2)' }}>
                       <Box>
-                        <Typography sx={{ fontWeight: 700 }}>
+                        <Typography sx={{ fontWeight: 700, color: '#e0e0ff' }}>
                           {interview.company}
                         </Typography>
-                        <Typography variant="body2" sx={{ color: '#666' }}>
+                        <Typography variant="body2" sx={{ color: '#a0a0cc' }}>
                           {interview.jobTitle}
                         </Typography>
                       </Box>
                     </TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>
+                    <TableCell sx={{ fontWeight: 600, color: '#e0e0ff', borderBottom: '1px solid rgba(0, 255, 255, 0.2)' }}>
                       {interview.round}
                     </TableCell>
-                    <TableCell sx={{ color: '#666' }}>
+                    <TableCell sx={{ color: '#a0a0cc', borderBottom: '1px solid rgba(0, 255, 255, 0.2)' }}>
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                        <DateRangeIcon sx={{ fontSize: 16 }} />
+                        <DateRangeIcon sx={{ fontSize: 16, color: '#00ffff' }} />
                         {new Date(interview.date).toLocaleDateString()}
                       </Box>
                       {interview.time && (
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#999' }}>
-                          <ScheduleIcon sx={{ fontSize: 16 }} />
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5, color: '#a0a0cc' }}>
+                          <ScheduleIcon sx={{ fontSize: 16, color: '#ff00ff' }} />
                           {interview.time}
                         </Box>
                       )}
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ borderBottom: '1px solid rgba(0, 255, 255, 0.2)' }}>
                       <Chip
                         size="small"
                         label={interview.type}
                         icon={getTypeIcon(interview.type) as any}
                         sx={{
-                          background: '#f0f4ff',
-                          color: '#667eea',
+                          background: 'rgba(255, 0, 255, 0.2)',
+                          color: '#ff00ff',
+                          border: '1px solid #ff00ff',
                           fontWeight: 600,
+                          boxShadow: '0 0 10px rgba(255, 0, 255, 0.3)',
                         }}
                       />
                     </TableCell>
-                    <TableCell>
+                    <TableCell sx={{ borderBottom: '1px solid rgba(0, 255, 255, 0.2)' }}>
                       <Chip
                         size="small"
                         label={interview.status}
                         sx={{
                           background: getStatusColor(interview.status).bg,
                           color: getStatusColor(interview.status).color,
+                          border: `1px solid ${getStatusColor(interview.status).border}`,
                           fontWeight: 600,
+                          boxShadow: `0 0 10px ${getStatusColor(interview.status).border}40`,
                         }}
                       />
                     </TableCell>
-                    <TableCell align="right">
+                    <TableCell align="right" sx={{ borderBottom: '1px solid rgba(0, 255, 255, 0.2)' }}>
                       <Tooltip title="Edit">
                         <IconButton
                           size="small"
                           onClick={() => handleEdit(interview)}
-                          sx={{ color: '#667eea' }}
+                          sx={{
+                            color: '#00ffff',
+                            '&:hover': {
+                              background: 'rgba(0, 255, 255, 0.2)',
+                              boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                            }
+                          }}
                         >
                           <EditIcon />
                         </IconButton>
@@ -334,7 +414,13 @@ const InterviewTracker: React.FC = () => {
                         <IconButton
                           size="small"
                           onClick={() => handleDelete(interview.id)}
-                          sx={{ color: '#f44336' }}
+                          sx={{
+                            color: '#ff0064',
+                            '&:hover': {
+                              background: 'rgba(255, 0, 100, 0.2)',
+                              boxShadow: '0 0 10px rgba(255, 0, 100, 0.5)',
+                            }
+                          }}
                         >
                           <DeleteIcon />
                         </IconButton>
@@ -349,8 +435,29 @@ const InterviewTracker: React.FC = () => {
       </Container>
 
       {/* Dialog */}
-      <Dialog open={openDialog} onClose={() => setOpenDialog(false)} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', color: '#fff', fontWeight: 700 }}>
+      <Dialog
+        open={openDialog}
+        onClose={() => setOpenDialog(false)}
+        maxWidth="sm"
+        fullWidth
+        PaperProps={{
+          sx: {
+            background: 'rgba(20, 20, 32, 0.95)',
+            border: '2px solid #00ffff',
+            borderRadius: '16px',
+            boxShadow: '0 0 40px rgba(0, 255, 255, 0.4)',
+            backdropFilter: 'blur(10px)',
+          }
+        }}
+      >
+        <DialogTitle sx={{
+          background: 'linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%)',
+          color: '#e0e0ff',
+          fontWeight: 800,
+          textTransform: 'uppercase',
+          letterSpacing: '0.05em',
+          borderBottom: '1px solid #00ffff',
+        }}>
           {editingId ? 'Edit Interview' : 'Schedule Interview'}
         </DialogTitle>
         <DialogContent sx={{ pt: 3 }}>
@@ -361,7 +468,28 @@ const InterviewTracker: React.FC = () => {
             onChange={(e) => setFormData({ ...formData, company: e.target.value })}
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -370,7 +498,28 @@ const InterviewTracker: React.FC = () => {
             onChange={(e) => setFormData({ ...formData, jobTitle: e.target.value })}
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -380,7 +529,28 @@ const InterviewTracker: React.FC = () => {
             select
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           >
             <MenuItem value="Phone Screen">Phone Screen</MenuItem>
             <MenuItem value="Technical">Technical</MenuItem>
@@ -396,7 +566,28 @@ const InterviewTracker: React.FC = () => {
             InputLabelProps={{ shrink: true }}
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -407,7 +598,28 @@ const InterviewTracker: React.FC = () => {
             InputLabelProps={{ shrink: true }}
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -416,7 +628,28 @@ const InterviewTracker: React.FC = () => {
             onChange={(e) => setFormData({ ...formData, interviewer: e.target.value })}
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -426,7 +659,28 @@ const InterviewTracker: React.FC = () => {
             select
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           >
             <MenuItem value="Phone">Phone</MenuItem>
             <MenuItem value="Video Call">Video Call</MenuItem>
@@ -440,7 +694,28 @@ const InterviewTracker: React.FC = () => {
             select
             margin="dense"
             variant="outlined"
-            sx={{ mb: 2 }}
+            sx={{
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           >
             <MenuItem value="Scheduled">Scheduled</MenuItem>
             <MenuItem value="Completed">Completed</MenuItem>
@@ -456,14 +731,57 @@ const InterviewTracker: React.FC = () => {
             rows={3}
             margin="dense"
             variant="outlined"
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                color: '#e0e0ff',
+                '& fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&:hover fieldset': {
+                  borderColor: '#00ffff',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#00ffff',
+                  boxShadow: '0 0 10px rgba(0, 255, 255, 0.5)',
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#a0a0cc',
+                '&.Mui-focused': {
+                  color: '#00ffff',
+                },
+              },
+            }}
           />
         </DialogContent>
-        <DialogActions sx={{ p: 2 }}>
-          <Button onClick={() => setOpenDialog(false)}>Cancel</Button>
+        <DialogActions sx={{ p: 2, borderTop: '1px solid #00ffff' }}>
+          <Button
+            onClick={() => setOpenDialog(false)}
+            sx={{
+              color: '#a0a0cc',
+              '&:hover': {
+                background: 'rgba(160, 160, 204, 0.1)',
+              }
+            }}
+          >
+            Cancel
+          </Button>
           <Button
             onClick={handleSave}
             variant="contained"
-            sx={{ background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)' }}
+            sx={{
+              background: 'rgba(0, 255, 255, 0.2)',
+              color: '#00ffff',
+              border: '1px solid #00ffff',
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              boxShadow: '0 0 15px rgba(0, 255, 255, 0.3)',
+              '&:hover': {
+                background: 'rgba(0, 255, 255, 0.3)',
+                boxShadow: '0 0 25px rgba(0, 255, 255, 0.5)',
+              }
+            }}
           >
             {editingId ? 'Update' : 'Schedule'}
           </Button>

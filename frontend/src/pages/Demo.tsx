@@ -27,17 +27,17 @@ import { useNavigate } from 'react-router-dom';
 
 const featureHighlights = [
   {
-    icon: <MailOutlineIcon sx={{ fontSize: 36, color: '#667eea' }} />,
+    icon: <MailOutlineIcon sx={{ fontSize: 36, color: '#00ffff' }} />,
     title: 'Email Sync & Parsing',
     description: 'Connect Gmail or Outlook to auto-detect job conversations and classify status updates instantly.',
   },
   {
-    icon: <WorkOutlineIcon sx={{ fontSize: 36, color: '#764ba2' }} />,
+    icon: <WorkOutlineIcon sx={{ fontSize: 36, color: '#ff00ff' }} />,
     title: 'Application HQ',
     description: 'A Kanban-inspired tracker with detailed notes, follow-ups, and document attachments in one place.',
   },
   {
-    icon: <AutoGraphIcon sx={{ fontSize: 36, color: '#e45899' }} />,
+    icon: <AutoGraphIcon sx={{ fontSize: 36, color: '#00ff64' }} />,
     title: 'Live Analytics',
     description: 'Forecast offers, monitor response rates, and visualize your funnel with gorgeous, real-time charts.',
   },
@@ -79,7 +79,7 @@ const Demo: React.FC = () => {
   const handleSecondaryCta = () => navigate('/login');
 
   return (
-    <Box sx={{ background: '#f4f3ff', minHeight: '100vh', py: { xs: 6, md: 10 } }}>
+    <Box sx={{ background: 'linear-gradient(135deg, rgba(10, 10, 15, 1) 0%, rgba(20, 20, 32, 1) 100%)', minHeight: '100vh', py: { xs: 6, md: 10 } }}>
       {/* Floating "Building in Progress" Banner */}
       <Box
         sx={{
@@ -88,16 +88,19 @@ const Demo: React.FC = () => {
           left: '50%',
           transform: 'translateX(-50%)',
           zIndex: 1000,
-          background: 'linear-gradient(135deg, #ef4444 0%, #dc2626 100%)',
+          background: 'linear-gradient(135deg, rgba(255, 0, 100, 0.9) 0%, rgba(255, 0, 255, 0.9) 100%)',
           color: '#fff',
           px: 3,
           py: 1.2,
+          border: '2px solid #ff0064',
           borderRadius: '50px',
-          boxShadow: '0 10px 30px rgba(239, 68, 68, 0.3)',
+          boxShadow: '0 0 30px rgba(255, 0, 100, 0.5)',
           backdropFilter: 'blur(10px)',
           fontWeight: 700,
           fontSize: '0.95rem',
           textAlign: 'center',
+          textTransform: 'uppercase',
+          letterSpacing: '0.1em',
           animation: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
           '@keyframes pulse': {
             '0%, 100%': {
@@ -111,7 +114,7 @@ const Demo: React.FC = () => {
           },
         }}
       >
-        🚀 Building in Progress
+        Building in Progress
       </Box>
 
       <Container maxWidth="lg">
@@ -119,12 +122,16 @@ const Demo: React.FC = () => {
         <Grid container spacing={4} alignItems="center">
           <Grid item xs={12} md={7}>
             <Chip
-              label="The modern way to track applications"
+              label="THE MODERN WAY TO TRACK APPLICATIONS"
               sx={{
                 mb: 3,
-                fontWeight: 600,
-                background: 'rgba(102, 126, 234, 0.15)',
-                color: '#4b5bdc',
+                fontWeight: 700,
+                background: 'rgba(0, 255, 255, 0.2)',
+                color: '#00ffff',
+                border: '1px solid #00ffff',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                boxShadow: '0 0 15px rgba(0, 255, 255, 0.3)',
               }}
             />
             <Typography
@@ -133,12 +140,15 @@ const Demo: React.FC = () => {
                 fontWeight: 800,
                 mb: 3,
                 lineHeight: 1.1,
-                color: '#1a1a1a',
+                color: '#e0e0ff',
+                textTransform: 'uppercase',
+                letterSpacing: '0.02em',
+                textShadow: '0 0 20px rgba(0, 255, 255, 0.3)',
               }}
             >
               Showcase your entire job search in one immersive dashboard.
             </Typography>
-            <Typography variant="h6" sx={{ color: '#4a4a68', mb: 4, maxWidth: 520 }}>
+            <Typography variant="h6" sx={{ color: '#a0a0cc', mb: 4, maxWidth: 520 }}>
               Watch Smart Job Application Tracker read your inbox, build a living pipeline, and send you the right
               prompts at the perfect time so you can focus on interviews, not spreadsheets.
             </Typography>
@@ -153,9 +163,16 @@ const Demo: React.FC = () => {
                   fontSize: '1.05rem',
                   fontWeight: 700,
                   borderRadius: '14px',
-                  background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                  boxShadow: '0 20px 45px rgba(102, 126, 234, 0.35)',
-                  textTransform: 'none',
+                  background: 'rgba(0, 255, 255, 0.2)',
+                  color: '#00ffff',
+                  border: '2px solid #00ffff',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 0 25px rgba(0, 255, 255, 0.5)',
+                  '&:hover': {
+                    background: 'rgba(0, 255, 255, 0.3)',
+                    boxShadow: '0 0 35px rgba(0, 255, 255, 0.7)',
+                  }
                 }}
               >
                 Start Free Trial
@@ -170,23 +187,30 @@ const Demo: React.FC = () => {
                   fontWeight: 700,
                   borderRadius: '14px',
                   borderWidth: 2,
-                  color: '#4b5bdc',
-                  borderColor: '#cdd1ff',
-                  textTransform: 'none',
+                  color: '#ff00ff',
+                  borderColor: '#ff00ff',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.1em',
+                  boxShadow: '0 0 20px rgba(255, 0, 255, 0.3)',
+                  '&:hover': {
+                    background: 'rgba(255, 0, 255, 0.1)',
+                    borderColor: '#ff00ff',
+                    boxShadow: '0 0 30px rgba(255, 0, 255, 0.5)',
+                  }
                 }}
               >
                 Login to Continue
               </Button>
             </Stack>
-            <Stack direction="row" spacing={3} sx={{ color: '#6f6c99', fontSize: '0.9rem' }}>
+            <Stack direction="row" spacing={3} sx={{ color: '#a0a0cc', fontSize: '0.9rem' }}>
               <Box>
-                <Typography sx={{ fontWeight: 700, color: '#1a1a1a' }}>Demo Credentials</Typography>
+                <Typography sx={{ fontWeight: 700, color: '#00ffff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Demo Credentials</Typography>
                 <Typography>Email: demo@jobtracker.com</Typography>
                 <Typography>Password: demo123!</Typography>
               </Box>
-              <Divider flexItem orientation="vertical" sx={{ borderColor: 'rgba(0,0,0,0.1)' }} />
+              <Divider flexItem orientation="vertical" sx={{ borderColor: 'rgba(0, 255, 255, 0.3)' }} />
               <Box>
-                <Typography sx={{ fontWeight: 700, color: '#1a1a1a' }}>No card required</Typography>
+                <Typography sx={{ fontWeight: 700, color: '#ff00ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>No card required</Typography>
                 <Typography>Sign up or jump in with the demo account.</Typography>
               </Box>
             </Stack>
@@ -194,40 +218,82 @@ const Demo: React.FC = () => {
           <Grid item xs={12} md={5}>
             <Box
               sx={{
-                background: 'linear-gradient(180deg, #ffffff 0%, #f6f4ff 100%)',
+                background: 'rgba(20, 20, 32, 0.9)',
                 borderRadius: '28px',
                 p: 3,
-                boxShadow: '0 30px 80px rgba(33, 35, 83, 0.2)',
-                border: '1px solid rgba(255,255,255,0.6)',
+                border: '2px solid #00ffff',
+                boxShadow: '0 0 40px rgba(0, 255, 255, 0.4)',
+                backdropFilter: 'blur(10px)',
               }}
             >
-              <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', color: '#8c7ae6', fontWeight: 700 }}>
+              <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', color: '#00ffff', fontWeight: 700, letterSpacing: '0.1em' }}>
                 Live Snapshot
               </Typography>
-              <Typography variant="h5" sx={{ fontWeight: 800, mt: 1, mb: 3 }}>
+              <Typography variant="h5" sx={{ fontWeight: 800, mt: 1, mb: 3, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Weekly pipeline forecast
               </Typography>
               <Grid container spacing={2}>
                 {metrics.map((metric) => (
                   <Grid item xs={12} sm={6} key={metric.label}>
-                    <Card sx={{ borderRadius: '18px', background: '#fff', boxShadow: '0 12px 30px rgba(0,0,0,0.08)' }}>
+                    <Card sx={{
+                      borderRadius: '18px',
+                      background: 'rgba(10, 10, 15, 0.9)',
+                      border: '1px solid #ff00ff',
+                      boxShadow: '0 0 15px rgba(255, 0, 255, 0.3)',
+                    }}>
                       <CardContent>
-                        <Typography sx={{ fontSize: '0.85rem', color: '#8c8aa7', textTransform: 'uppercase' }}>
+                        <Typography sx={{ fontSize: '0.75rem', color: '#a0a0cc', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                           {metric.label}
                         </Typography>
-                        <Typography variant="h4" sx={{ fontWeight: 800, my: 1, color: '#1a1a1a' }}>
+                        <Typography variant="h4" sx={{ fontWeight: 800, my: 1, color: '#ff00ff' }}>
                           {metric.value}
                         </Typography>
-                        <Typography sx={{ color: '#7a7694', fontSize: '0.9rem' }}>{metric.subtext}</Typography>
+                        <Typography sx={{ color: '#a0a0cc', fontSize: '0.85rem' }}>{metric.subtext}</Typography>
                       </CardContent>
                     </Card>
                   </Grid>
                 ))}
               </Grid>
-              <Box sx={{ mt: 3, display: 'flex', gap: 2 }}>
-                <Chip label="Auto-sync" icon={<BoltIcon />} sx={{ fontWeight: 700 }} />
-                <Chip label="Secure" icon={<ShieldIcon />} sx={{ fontWeight: 700 }} />
-                <Chip label="Analytics" icon={<InsightsIcon />} sx={{ fontWeight: 700 }} />
+              <Box sx={{ mt: 3, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                <Chip
+                  label="AUTO-SYNC"
+                  icon={<BoltIcon />}
+                  sx={{
+                    fontWeight: 700,
+                    background: 'rgba(0, 255, 255, 0.2)',
+                    color: '#00ffff',
+                    border: '1px solid #00ffff',
+                    boxShadow: '0 0 10px rgba(0, 255, 255, 0.3)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                />
+                <Chip
+                  label="SECURE"
+                  icon={<ShieldIcon />}
+                  sx={{
+                    fontWeight: 700,
+                    background: 'rgba(255, 0, 255, 0.2)',
+                    color: '#ff00ff',
+                    border: '1px solid #ff00ff',
+                    boxShadow: '0 0 10px rgba(255, 0, 255, 0.3)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                />
+                <Chip
+                  label="ANALYTICS"
+                  icon={<InsightsIcon />}
+                  sx={{
+                    fontWeight: 700,
+                    background: 'rgba(0, 255, 100, 0.2)',
+                    color: '#00ff64',
+                    border: '1px solid #00ff64',
+                    boxShadow: '0 0 10px rgba(0, 255, 100, 0.3)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.05em',
+                  }}
+                />
               </Box>
             </Box>
           </Grid>
@@ -235,7 +301,7 @@ const Demo: React.FC = () => {
 
         {/* Features */}
         <Box sx={{ mt: 10 }}>
-          <Typography variant="h4" sx={{ fontWeight: 800, mb: 4, textAlign: 'center', color: '#1f1c3d' }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, mb: 4, textAlign: 'center', color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em', textShadow: '0 0 20px rgba(0, 255, 255, 0.3)' }}>
             Everything hiring managers ask to see in seconds.
           </Typography>
           <Grid container spacing={3}>
@@ -246,17 +312,23 @@ const Demo: React.FC = () => {
                     height: '100%',
                     borderRadius: '24px',
                     padding: 3,
-                    background: '#fff',
-                    border: '1px solid rgba(102, 126, 234, 0.15)',
-                    boxShadow: '0 15px 35px rgba(31, 28, 61, 0.08)',
+                    background: 'rgba(20, 20, 32, 0.9)',
+                    border: '2px solid #00ffff',
+                    boxShadow: '0 0 20px rgba(0, 255, 255, 0.3)',
+                    backdropFilter: 'blur(10px)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 0 30px rgba(0, 255, 255, 0.5)',
+                    }
                   }}
                 >
                   <Stack spacing={2}>
                     {feature.icon}
-                    <Typography variant="h6" sx={{ fontWeight: 700, color: '#1f1c3d' }}>
+                    <Typography variant="h6" sx={{ fontWeight: 800, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                       {feature.title}
                     </Typography>
-                    <Typography sx={{ color: '#5d5a78' }}>{feature.description}</Typography>
+                    <Typography sx={{ color: '#a0a0cc' }}>{feature.description}</Typography>
                   </Stack>
                 </Card>
               </Grid>
@@ -267,25 +339,25 @@ const Demo: React.FC = () => {
         {/* Timeline */}
         <Grid container spacing={4} sx={{ mt: 8 }} alignItems="center">
           <Grid item xs={12} md={6}>
-            <Typography variant="h4" sx={{ fontWeight: 800, color: '#1f1c3d', mb: 3 }}>
+            <Typography variant="h4" sx={{ fontWeight: 800, color: '#e0e0ff', mb: 3, textTransform: 'uppercase', letterSpacing: '0.05em', textShadow: '0 0 20px rgba(255, 0, 255, 0.3)' }}>
               From inbox chaos to clarity in under 60 seconds.
             </Typography>
-            <Typography sx={{ color: '#5d5a78', mb: 3 }}>
+            <Typography sx={{ color: '#a0a0cc', mb: 3 }}>
               The product tour below mirrors what hiring teams see when you share your JobTracker workspace link.
             </Typography>
             <List>
               {timelineSteps.map((step, index) => (
-                <ListItem key={step} sx={{ alignItems: 'flex-start' }}>
+                <ListItem key={step} sx={{ alignItems: 'flex-start', borderLeft: '2px solid #00ffff', pl: 2, ml: 1, mb: 2 }}>
                   <ListItemIcon>
-                    <TimelineIcon sx={{ color: '#667eea' }} />
+                    <TimelineIcon sx={{ color: '#00ffff' }} />
                   </ListItemIcon>
                   <ListItemText
                     primary={
-                      <Typography sx={{ fontWeight: 700, color: '#1f1c3d' }}>
+                      <Typography sx={{ fontWeight: 800, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em', fontSize: '0.85rem' }}>
                         Step {index + 1}
                       </Typography>
                     }
-                    secondary={<Typography sx={{ color: '#5d5a78' }}>{step}</Typography>}
+                    secondary={<Typography sx={{ color: '#a0a0cc' }}>{step}</Typography>}
                   />
                 </ListItem>
               ))}
@@ -294,18 +366,20 @@ const Demo: React.FC = () => {
           <Grid item xs={12} md={6}>
             <Box
               sx={{
-                background: '#1f1c3d',
+                background: 'rgba(20, 20, 32, 0.9)',
+                border: '2px solid #ff00ff',
                 borderRadius: '24px',
                 p: 4,
                 color: '#fff',
                 minHeight: 320,
-                boxShadow: '0 25px 60px rgba(15, 12, 41, 0.5)'
+                boxShadow: '0 0 40px rgba(255, 0, 255, 0.4)',
+                backdropFilter: 'blur(10px)',
               }}
             >
-              <Typography variant="h6" sx={{ mb: 2, fontWeight: 700 }}>
+              <Typography variant="h6" sx={{ mb: 2, fontWeight: 800, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                 Demo snapshot
               </Typography>
-              <Typography sx={{ opacity: 0.85, mb: 3 }}>
+              <Typography sx={{ color: '#a0a0cc', mb: 3 }}>
                 Slide between stages to preview actual dashboard states, analytics, and interview planning cards the
                 moment you connect email.
               </Typography>
@@ -314,21 +388,38 @@ const Demo: React.FC = () => {
                   <Box
                     key={item}
                     sx={{
-                      background: 'rgba(255,255,255,0.08)',
+                      background: 'rgba(0, 255, 255, 0.1)',
+                      border: '1px solid #00ffff',
                       borderRadius: '16px',
                       p: 2,
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'space-between',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        background: 'rgba(0, 255, 255, 0.2)',
+                        boxShadow: '0 0 15px rgba(0, 255, 255, 0.3)',
+                      }
                     }}
                   >
                     <Box>
-                      <Typography sx={{ fontWeight: 700 }}>Opportunity {item}</Typography>
-                      <Typography sx={{ fontSize: '0.85rem', opacity: 0.8 }}>
+                      <Typography sx={{ fontWeight: 700, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Opportunity {item}</Typography>
+                      <Typography sx={{ fontSize: '0.85rem', color: '#a0a0cc' }}>
                         Recruiter follow-up scheduled · Panel interview next
                       </Typography>
                     </Box>
-                    <Chip label="In progress" color="secondary" />
+                    <Chip
+                      label="IN PROGRESS"
+                      sx={{
+                        background: 'rgba(255, 0, 255, 0.2)',
+                        color: '#ff00ff',
+                        border: '1px solid #ff00ff',
+                        fontWeight: 700,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.05em',
+                        boxShadow: '0 0 10px rgba(255, 0, 255, 0.3)',
+                      }}
+                    />
                   </Box>
                 ))}
               </Stack>
@@ -338,20 +429,31 @@ const Demo: React.FC = () => {
 
         {/* Social Proof */}
         <Box sx={{ mt: 10 }}>
-          <Typography variant="overline" sx={{ color: '#8c7ae6', fontWeight: 700 }}>
+          <Typography variant="overline" sx={{ color: '#00ffff', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.1em', fontSize: '0.85rem' }}>
             Loved by power job seekers
           </Typography>
           <Grid container spacing={3} sx={{ mt: 2 }}>
             {testimonials.map((testimonial) => (
               <Grid item xs={12} md={6} key={testimonial.name}>
-                <Card sx={{ borderRadius: '24px', padding: 3, boxShadow: '0 20px 40px rgba(31, 28, 61, 0.12)' }}>
+                <Card sx={{
+                  borderRadius: '24px',
+                  padding: 3,
+                  background: 'rgba(20, 20, 32, 0.9)',
+                  border: '2px solid #ff00ff',
+                  boxShadow: '0 0 20px rgba(255, 0, 255, 0.3)',
+                  backdropFilter: 'blur(10px)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    boxShadow: '0 0 30px rgba(255, 0, 255, 0.5)',
+                  }
+                }}>
                   <Stack spacing={2}>
-                    <CheckCircleIcon sx={{ color: '#22c55e', fontSize: 32 }} />
-                    <Typography sx={{ fontSize: '1.1rem', color: '#4a4a68' }}>
-                      “{testimonial.quote}”
+                    <CheckCircleIcon sx={{ color: '#00ff64', fontSize: 32 }} />
+                    <Typography sx={{ fontSize: '1.1rem', color: '#a0a0cc' }}>
+                      "{testimonial.quote}"
                     </Typography>
-                    <Typography sx={{ fontWeight: 700 }}>{testimonial.name}</Typography>
-                    <Typography sx={{ color: '#8b89a8' }}>{testimonial.title}</Typography>
+                    <Typography sx={{ fontWeight: 800, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{testimonial.name}</Typography>
+                    <Typography sx={{ color: '#a0a0cc' }}>{testimonial.title}</Typography>
                   </Stack>
                 </Card>
               </Grid>
@@ -364,17 +466,19 @@ const Demo: React.FC = () => {
           sx={{
             mt: 10,
             borderRadius: '28px',
-            background: 'linear-gradient(135deg, #222145 0%, #5c3b94 100%)',
+            background: 'linear-gradient(135deg, rgba(0, 255, 255, 0.2) 0%, rgba(255, 0, 255, 0.2) 100%)',
+            border: '2px solid #00ffff',
             color: '#fff',
             p: { xs: 4, md: 6 },
             textAlign: 'center',
-            boxShadow: '0 30px 70px rgba(13, 11, 30, 0.6)'
+            boxShadow: '0 0 50px rgba(0, 255, 255, 0.4)',
+            backdropFilter: 'blur(10px)',
           }}
         >
-          <Typography variant="h4" sx={{ fontWeight: 800, mb: 2 }}>
+          <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
             Ready to show hiring teams the organized you?
           </Typography>
-          <Typography sx={{ opacity: 0.9, mb: 4, fontSize: '1.05rem' }}>
+          <Typography sx={{ color: '#a0a0cc', mb: 4, fontSize: '1.05rem' }}>
             Spin up your workspace, invite mentors, and keep every application conversation at your fingertips.
           </Typography>
           <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center">
@@ -382,13 +486,20 @@ const Demo: React.FC = () => {
               variant="contained"
               onClick={handlePrimaryCta}
               sx={{
-                background: '#fff',
-                color: '#4b47ff',
+                background: 'rgba(0, 255, 255, 0.3)',
+                color: '#00ffff',
+                border: '2px solid #00ffff',
                 fontWeight: 800,
                 px: 5,
                 py: 1.5,
                 borderRadius: '14px',
-                textTransform: 'none',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                boxShadow: '0 0 25px rgba(0, 255, 255, 0.5)',
+                '&:hover': {
+                  background: 'rgba(0, 255, 255, 0.4)',
+                  boxShadow: '0 0 35px rgba(0, 255, 255, 0.7)',
+                }
               }}
             >
               Create my workspace
@@ -397,13 +508,21 @@ const Demo: React.FC = () => {
               variant="outlined"
               onClick={handleSecondaryCta}
               sx={{
-                borderColor: 'rgba(255,255,255,0.4)',
-                color: '#fff',
+                borderColor: '#ff00ff',
+                borderWidth: 2,
+                color: '#ff00ff',
                 fontWeight: 700,
                 px: 5,
                 py: 1.5,
                 borderRadius: '14px',
-                textTransform: 'none',
+                textTransform: 'uppercase',
+                letterSpacing: '0.1em',
+                boxShadow: '0 0 20px rgba(255, 0, 255, 0.3)',
+                '&:hover': {
+                  background: 'rgba(255, 0, 255, 0.1)',
+                  borderColor: '#ff00ff',
+                  boxShadow: '0 0 30px rgba(255, 0, 255, 0.5)',
+                }
               }}
             >
               I already have an account
