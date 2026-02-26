@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
-import { 
-  Box, 
-  Typography, 
-  Card, 
-  CardContent, 
-  Grid, 
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Grid,
   Container,
   LinearProgress,
-  Button
+  Button,
+  Alert,
+  CircularProgress
 } from '@mui/material';
 import {
   TrendingUp as TrendingIcon,
@@ -15,6 +17,7 @@ import {
   Schedule as PendingIcon,
   EmojiEvents as AwardIcon,
   Assignment as AppIcon,
+  DataObject as DemoIcon,
 } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import { applicationService } from '../services/api';
@@ -34,6 +37,8 @@ const Dashboard: React.FC = () => {
     interviews: 0,
     offers: 0,
   });
+  const [loadingDemo, setLoadingDemo] = useState(false);
+  const [demoMessage, setDemoMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
 
   useEffect(() => {
     fetchApplicationStats();
@@ -56,6 +61,22 @@ const Dashboard: React.FC = () => {
       });
     } catch (error) {
       console.error('Failed to fetch application stats:', error);
+    }
+  };
+
+  const handleLoadDemoData = async () => {
+    setLoadingDemo(true);
+    setDemoMessage(null);
+    try {
+      await applicationService.generateDemoData();
+      setDemoMessage({ type: 'success', text: '10 demo applications loaded successfully!' });
+      // Refresh stats after loading demo data
+      await fetchApplicationStats();
+    } catch (error) {
+      console.error('Failed to load demo data:', error);
+      setDemoMessage({ type: 'error', text: 'Failed to load demo data. Please try again.' });
+    } finally {
+      setLoadingDemo(false);
     }
   };
 
@@ -183,6 +204,90 @@ const Dashboard: React.FC = () => {
             />
           </Grid>
         </Grid>
+
+        {/* Demo Data Alert */}
+        {demoMessage && (
+          <Alert
+            severity={demoMessage.type}
+            onClose={() => setDemoMessage(null)}
+            sx={{
+              mb: 4,
+              background: demoMessage.type === 'success'
+                ? 'rgba(0, 255, 136, 0.1)'
+                : 'rgba(255, 0, 85, 0.1)',
+              border: `2px solid ${demoMessage.type === 'success' ? '#00ff88' : '#ff0055'}`,
+              color: '#e0e0ff',
+              '& .MuiAlert-icon': {
+                color: demoMessage.type === 'success' ? '#00ff88' : '#ff0055'
+              }
+            }}
+          >
+            {demoMessage.text}
+          </Alert>
+        )}
+
+        {/* Load Demo Data Button - only show if no applications */}
+        {stats.totalApplications === 0 && !loadingDemo && (
+          <Card sx={{
+            background: 'linear-gradient(135deg, rgba(255, 0, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%)',
+            border: '2px solid #ff00ff',
+            borderRadius: '16px',
+            p: 3,
+            mb: 4,
+            boxShadow: '0 0 30px rgba(255, 0, 255, 0.3)',
+            transition: 'all 0.3s ease',
+          }}>
+            <Box sx={{ textAlign: 'center' }}>
+              <DemoIcon sx={{ fontSize: 48, color: '#ff00ff', mb: 2, filter: 'drop-shadow(0 0 10px rgba(255, 0, 255, 0.5))' }} />
+              <Typography variant="h5" sx={{ fontWeight: 700, mb: 1, color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+                No data yet?
+              </Typography>
+              <Typography variant="body2" sx={{ color: '#a0a0cc', mb: 3 }}>
+                Load sample demo data to explore the features
+              </Typography>
+              <Button
+                variant="contained"
+                onClick={handleLoadDemoData}
+                startIcon={<DemoIcon />}
+                sx={{
+                  background: 'rgba(255, 0, 255, 0.2)',
+                  color: '#ff00ff',
+                  border: '1px solid #ff00ff',
+                  fontWeight: 700,
+                  px: 4,
+                  py: 1.5,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.05em',
+                  boxShadow: '0 0 15px rgba(255, 0, 255, 0.3)',
+                  '&:hover': {
+                    background: 'rgba(255, 0, 255, 0.3)',
+                    boxShadow: '0 0 25px rgba(255, 0, 255, 0.5)',
+                  }
+                }}
+              >
+                Load Demo Data
+              </Button>
+            </Box>
+          </Card>
+        )}
+
+        {/* Loading Demo Data */}
+        {loadingDemo && (
+          <Card sx={{
+            background: 'rgba(20, 20, 32, 0.9)',
+            border: '2px solid #00ffff',
+            borderRadius: '16px',
+            p: 4,
+            mb: 4,
+            boxShadow: '0 0 30px rgba(0, 255, 255, 0.3)',
+            textAlign: 'center',
+          }}>
+            <CircularProgress sx={{ color: '#00ffff', mb: 2 }} />
+            <Typography variant="h6" sx={{ color: '#e0e0ff', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Loading Demo Data...
+            </Typography>
+          </Card>
+        )}
 
         {/* Quick Actions */}
         <Card sx={{
