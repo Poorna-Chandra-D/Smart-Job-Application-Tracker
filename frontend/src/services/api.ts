@@ -57,6 +57,7 @@ export const applicationService = {
   create: (data: any) => apiClient.post('/applications', data),
   update: (id: number, data: any) => apiClient.put(`/applications/${id}`, data),
   delete: (id: number) => apiClient.delete(`/applications/${id}`),
+  generateDemoData: () => apiClient.post('/applications/demo/generate'),
 };
 
 export const analyticsService = {
