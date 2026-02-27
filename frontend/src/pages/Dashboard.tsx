@@ -64,6 +64,10 @@ const Dashboard: React.FC = () => {
     }
   };
 
+  /**
+   * Loads demo data for new users to explore the application features.
+   * Generates 10 sample job applications and refreshes the dashboard stats.
+   */
   const handleLoadDemoData = async () => {
     setLoadingDemo(true);
     setDemoMessage(null);
