@@ -44,6 +44,16 @@ const Dashboard: React.FC = () => {
     fetchApplicationStats();
   }, []);
 
+  // Auto-dismiss success message after 5 seconds
+  useEffect(() => {
+    if (demoMessage?.type === 'success') {
+      const timer = setTimeout(() => {
+        setDemoMessage(null);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [demoMessage]);
+
   const fetchApplicationStats = async () => {
     try {
       const response = await applicationService.getAll();
